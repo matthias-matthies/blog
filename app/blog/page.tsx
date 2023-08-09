@@ -1,23 +1,20 @@
-import {getArticles, getArticleBySlug} from '@/app/lib/articleParser'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { serialize } from 'next-mdx-remote/serialize'
-import matter from 'gray-matter'
-import path from 'path'
-import fs from 'fs'
+import {recursivlyGetArticles} from "@/app/lib/articleParser";
+import fs from "fs";
+import path from "path";
 
-const postsDirectory = path.join(process.cwd(), 'articles')
+// const postsDirectory = path.join(process.cwd(), 'articles')
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+/* export const getStaticProps: GetStaticProps = async ({ params }) => {
     // Check if params exists and if params.slug is string
-    // const slug = params && typeof params.slug === 'string' ? params.slug : ""
-    // const content = fs.readFileSync(path.join(postsDirectory, `${slug}.mdx`), 'utf8')
-    // const { data, content: rawContent } = matter(content)
-    // const mdxSource = await serialize(rawContent, { scope: data })
+    const slug = params && typeof params.slug === 'string' ? params.slug : ""
+    const content = fs.readFileSync(path.join(postsDirectory, `${slug}.mdx`), 'utf8')
+    const { data, content: rawContent } = matter(content)
+    const mdxSource = await serialize(rawContent, { scope: data })
 
-    // return { props: { source: mdxSource, frontMatter: data } }
-}
+    return { props: { source: mdxSource, frontMatter: data } }
+} */
 
-export const getStaticPaths: GetStaticPaths = async () => {
+/* export const getStaticPaths: GetStaticPaths = async () => {
     const paths = getArticles()
         .map((post) => ({params: { slug: post.slug }}))
 
@@ -25,12 +22,35 @@ export const getStaticPaths: GetStaticPaths = async () => {
         paths,
         fallback: false,
     }
+
+    export function getArticles() {
+        const fileNames = fs.readdirSync(postsDirectory)
+        const posts = fileNames.map((fileName) => {
+            const slug = fileName.replace('.mdx', '')
+            const { metadata } = getArticleBySlug(slug)
+
+            return {
+                slug,
+                metadata,
+            }
+        })
+
+        return posts
+    }
+
+} */
+
+
+async function getData() {
+    const articleDirectory = "articles"
+    return recursivlyGetArticles(articleDirectory)
 }
 
-const BlogPage = ({ paths }): JSX.Element => {
+const BlogPage = (): JSX.Element => {
+    const posts = getData()
+    console.log(posts)
     return (
         <>
-            {paths}
             <ul>
                 <li>Path 1</li>
                 <li>Path 2</li>
