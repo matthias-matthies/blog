@@ -16,7 +16,7 @@ export function getArticleBySlug(slug: string) {
     }
 }
 
-export function recursivlyGetArticles(directory: string): {slug: string, metadata: {[p: string]: any}} {
+export function recursivlyGetArticles(directory: string) {
     return fs.readdirSync(directory).map((file) => {
         const absolutePath = path.join(directory, file)
 

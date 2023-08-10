@@ -1,17 +1,11 @@
-import {getArticles} from "@/app/lib/articleParser";
+import {getArticleBySlug} from "@/app/lib/articleParser";
 
-export async function generateStaticParams() {
-    const articles = getArticles()
+const ArticlePage = ({ params }): JSX.Element => {
+    const article = getArticleBySlug(`articles/${params.slug}`)
 
-    return articles.map(article => ({
-        slug: article.slug
-    }))
-}
-
-const ArticlePage = ({ params }: { params: { slug: string; }}): JSX.Element => {
     return (
         <>
-            {params.slug}
+            {article.content}
         </>
     )
 }
