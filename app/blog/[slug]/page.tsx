@@ -1,7 +1,11 @@
+import {getArticleBySlug} from "@/app/lib/articleParser";
+
 const ArticlePage = ({ params }): JSX.Element => {
+    const article = getArticleBySlug(params.slug)
+
     return (
         <>
-            {params.slug}
+            {article.content}
         </>
     )
 }
