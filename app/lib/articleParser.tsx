@@ -1,4 +1,4 @@
-import {Article, ArticleInfo} from '@/app/lib/articleTypes'
+import {Article} from '@/app/types/Article'
 import matter from 'gray-matter'
 import path from 'path'
 import fs from 'fs'
@@ -33,7 +33,7 @@ export function readArticleBySlug(slug: string): Article {
             metadata: {
                 author: undefined,
                 title: undefined,
-                date: undefined
+                date: new Date()
             },
             content: undefined
         }

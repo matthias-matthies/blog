@@ -1,5 +1,5 @@
 import {readArticleBySlug, readDirectory} from '@/app/lib/articleParser'
-import {ArticleInfo} from '@/app/lib/articleTypes'
+import {ArticleInfo} from '@/app/types/Article'
 import {MDXRemote} from 'next-mdx-remote/rsc'
 import path from 'path'
 import Link from "next/link";
@@ -16,7 +16,7 @@ const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
         <article className={"prose lg:prose-xl"}>
             Article List:
             <ul>
-                {articles.map(article => <li><a href={`${baseSlug}/${article.slug}`}>{article.slug}</a></li>)}
+                {articles.map(article => <li><Link href={`${baseSlug}/${article.slug}`}>{article.slug}</Link></li>)}
             </ul>
         </article>
     )
