@@ -5,12 +5,12 @@ const BlogPage = () => {
     const allArticles = readDirectoryRecursively(`${process.env.BASE_DIRECTORY}`)
     const recentArticles = allArticles
         .sort((a,b) => b.metadata.date.valueOf() - a.metadata.date.valueOf())
-        .filter(article => article.metadata.date < new Date())
+        .filter((article) => article.metadata.date < new Date())
 
     return (
         <>
             <ul>
-                {recentArticles.map(post => <li><Link href={post.slug}>{post.metadata.title} - {post.metadata.author} - {new Date(post.metadata.date).toISOString()}</Link></li>)}
+                {recentArticles.map(post => <li><Link href={post.slug}>{post.metadata.title} - {post.metadata.author} - {post.metadata.date.toISOString()}</Link></li>)}
             </ul>
         </>
     )
