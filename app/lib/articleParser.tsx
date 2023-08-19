@@ -23,6 +23,7 @@ export function readArticleBySlug(slug: string): Article {
                 title: data.title,
                 author: data.author,
                 date: data.date,
+                excerpt: data.excerpt,
                 ...data
             },
             content,
@@ -33,7 +34,8 @@ export function readArticleBySlug(slug: string): Article {
             metadata: {
                 author: undefined,
                 title: undefined,
-                date: new Date()
+                date: new Date(),
+                excerpt: undefined
             },
             content: undefined
         }

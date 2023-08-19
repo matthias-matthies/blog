@@ -2,6 +2,7 @@ export interface ArticleMetadata {
     author: string | undefined;
     title: string | undefined;
     date: Date;
+    excerpt: string | undefined;
 }
 
 export interface Article {
