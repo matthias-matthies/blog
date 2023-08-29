@@ -46,12 +46,10 @@ export function readDirectory(directory = ""): Article[] {
     if (!fs.existsSync(directory)) return []
 
     const fileNames = fs.readdirSync(directory)
-    const posts = fileNames.map((fileName) => {
+    return fileNames.map((fileName) => {
         const slug = fileName.replace('.mdx', '')
         return readArticleBySlug(`${slug}`)
     })
-
-    return posts
 }
 
 export function readDirectoryRecursively(directory: string): Article[] {

@@ -16,7 +16,7 @@ const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
         <article className={"prose lg:prose-xl"}>
             Article List:
             <ul>
-                {articles.map(article => <li><Link href={`${baseSlug}/${article.slug}`}>{article.slug}</Link></li>)}
+                {articles.map(article => <li><Link href={`/${baseSlug}/${article.slug}`}>{article.slug}</Link></li>)}
             </ul>
         </article>
     )
@@ -28,7 +28,7 @@ const ArticlePage = ({ params }: { params: { slug: string[]; }}) => {
     const articles = readDirectory(`${baseDirectory}/${slug}`)
 
     return article.content === undefined ?
-        ArticleCategoriesPage(articles, slug) :
+        ArticleCategoriesPage(articles, `${baseDirectory}/${slug}`) :
         ArticleMdxPage(article.content)
 }
 

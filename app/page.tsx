@@ -12,12 +12,11 @@ export default function Home() {
     const featuredArticles: Article[] = []
     const displayedArticles = [...featuredArticles, ...recentArticles].slice(0, 9)
 
-    console.log(displayedArticles)
     return (
         <>
             <p>{process.env.HOMETEXT}</p>
             <ul>
-                {displayedArticles.map((article) => (<li><ArticleCard article={article}/></li>))}
+                {displayedArticles.map((article) => (<li><ArticleCard key={article.slug} article={article}/></li>))}
             </ul>
         </>
     )
