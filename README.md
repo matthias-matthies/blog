@@ -1,18 +1,18 @@
 This is a Nextjs powered Blog Template for creating easy Blogs that use mdx files for articles.
 In order to use and get updates: fork the project, create a vercel connection, upload articles into the blog folder 
 
-ONLY 1 LAYER DEPTH POSSIBLE RIGHT NOW!!
-SO
+Posts need meta data: title, author, date, excerpt
 
 OK:
-blog
-- ARTICLE.mdx
-- FOLDER
-- - ARTICLE2.mdx
+---
+    title: This is an MDX Post
+    author: Matthias Matthies
+    date: 2023-08-13
+    excerpt: This is a excerpt
+---
+#H1
+Post content
 
 NOT OK:
-blog
-- ARTICLE.mdx
-- FOLDER
-- - FOLDER
-- - - ARTICLE2.mdx
+#H1
+Post content

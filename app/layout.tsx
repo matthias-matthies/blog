@@ -19,8 +19,8 @@ export default function RootLayout(
     return (
         <html lang="en">
             <body>
-                <LayoutHeader className={"container mx-auto md:px-0 px-2"} />
-                <main className={"container mx-auto md:px-0 px-2"}>
+                <LayoutHeader className={"md:px-0 px-2"} />
+                <main className={"container mx-auto md:px-0 px-2 mt-20 md:mt-24 lg:mt-40"}>
                     {children}
                 </main>
                 <LayoutFooter className={"container mx-auto md:px-0 px-2"} />

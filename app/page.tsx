@@ -4,6 +4,7 @@ import {Article} from "@/app/types/Article";
 
 export default function Home() {
     const allArticles = readDirectoryRecursively(`${process.env.BASE_DIRECTORY}`)
+
     const recentArticles = allArticles
         .sort((a,b) => b.metadata.date.valueOf() - a.metadata.date.valueOf())
         .filter((article) => article.metadata.date < new Date())
