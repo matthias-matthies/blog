@@ -8,7 +8,6 @@ import {FSFile} from "@/app/types/FileSystem";
 import useDebounce from "@/app/lib/useDebounce";
 import {useScrollDirection} from "@/app/lib/useScrollDirection";
 
-const baseUrl = process.env.BASE_DIRECTORY
 
 const MobileNavbar = ({ className = "", links = [] }: {className?: string; links?: FSFile[]}) => {
     const [navOpen, setNavOpen] = useState(false)
@@ -49,7 +48,7 @@ const MobileNavbar = ({ className = "", links = [] }: {className?: string; links
                 </nav>
                 <ul className={`${debouncedIsNavOpen ? "translate-x-full" : "translate-x-[200%]" } px-6 absolute pt-16 transform transition duration-300 flex top-0 left-0 w-1/2 h-screen flex-col bg-white z-10 text-right block md:hidden`}>
                     <li className={`text-lg font-bold uppercase my-2`}><Link onClick={() => setNavOpen(false)} href={`/blog`}>Blog</Link></li>
-                    {links.map((link) => (<li className={`text-lg font-bold uppercase my-2`}><Link onClick={() => setNavOpen(false)} href={`/${baseUrl}/${link.name}`}>{link.name}</Link></li>))}
+                    {links.map((link) => (<li className={`text-lg font-bold uppercase my-2`}><Link onClick={() => setNavOpen(false)} href={`/${link.absPath}`}>{link.name}</Link></li>))}
                 </ul>
                 <div className={`${debouncedIsNavOpen ? "translate-x-0" : "translate-x-full" } absolute transform transition duration-300 flex top-0 left-0 w-full h-screen flex-col bg-gradient-to-l from-white from-50% backdrop-blur-sm z-[5] block md:hidden`} />
             </div>
