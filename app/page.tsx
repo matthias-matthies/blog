@@ -15,8 +15,10 @@ export default function Home() {
 
     return (
         <>
+            <h1 className={`text-4xl font-extrabold`}>Das Streben nach Gleichgewicht ist der Schlüssel zum inneren Frieden und persönlichem Wachstum</h1>
             <p>Willkommen im "Hallo Welt" Blog! Entdecken Sie Inspiration und Weisheit für Ihre persönliche Entwicklung. Wir bieten praktische Ratschläge zu Themen wie Zielsetzung, Zeitmanagement und mehr. Gemeinsam werden wir Ihr volles Potenzial entfalten. Ihre Reise beginnt hier!</p>
 
+            <h2 className={`text-2xl mb-6 mt-12`}>Die neusten Artikel</h2>
             <ul>
                 {displayedArticles.map((article) => (<li><ArticleCard key={article.slug} article={article}/></li>))}
             </ul>
