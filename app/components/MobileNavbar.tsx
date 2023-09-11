@@ -8,7 +8,6 @@ import {FSFile} from "@/app/types/FileSystem";
 import useDebounce from "@/app/lib/useDebounce";
 import {useScrollDirection} from "@/app/lib/useScrollDirection";
 
-
 const MobileNavbar = ({ className = "", links = [] }: {className?: string; links?: FSFile[]}) => {
     const [navOpen, setNavOpen] = useState(false)
     const [hideNav, setHideNav] = useState(false)
