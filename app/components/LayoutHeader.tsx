@@ -8,7 +8,7 @@ const LayoutHeader = ({ className = "" }: {className?: string;}) => {
     return (
         <header className={`fixed top-0 w-screen ${className}`}>
             <Navbar links={links} className={`container mx-auto z-10`} />
-            <MobileNavbar links={links} className={`container mx-auto z-10`}/>
+            <MobileNavbar links={links} className={`z-10`}/>
         </header>
     )
 }

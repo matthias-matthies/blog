@@ -15,7 +15,8 @@ export default function Home() {
 
     return (
         <>
-            <p>{process.env.HOMETEXT}</p>
+            <p>Willkommen im "Hallo Welt" Blog! Entdecken Sie Inspiration und Weisheit für Ihre persönliche Entwicklung. Wir bieten praktische Ratschläge zu Themen wie Zielsetzung, Zeitmanagement und mehr. Gemeinsam werden wir Ihr volles Potenzial entfalten. Ihre Reise beginnt hier!</p>
+
             <ul>
                 {displayedArticles.map((article) => (<li><ArticleCard key={article.slug} article={article}/></li>))}
             </ul>

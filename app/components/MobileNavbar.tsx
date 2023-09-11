@@ -16,8 +16,8 @@ const MobileNavbar = ({ className = "", links = [] }: {className?: string; links
     const debouncedIsNavOpen = useDebounce(navOpen, 100)
 
     useEffect(() => {
-        if (scrollDirection === "up" && hideNav == true) setHideNav(false)
-        if (scrollDirection === "down" && hideNav == false) setHideNav(true)
+        if (scrollDirection === "up" && hideNav) setHideNav(false)
+        if (scrollDirection === "down" && !hideNav) setHideNav(true)
     },[scrollDirection])
     const toggleNav = () => {
         setNavOpen(!navOpen)
@@ -50,7 +50,7 @@ const MobileNavbar = ({ className = "", links = [] }: {className?: string; links
                     <li className={`text-lg font-bold uppercase my-2`}><Link onClick={() => setNavOpen(false)} href={`/blog`}>Blog</Link></li>
                     {links.map((link) => (<li className={`text-lg font-bold uppercase my-2`}><Link onClick={() => setNavOpen(false)} href={`/${link.absPath}`}>{link.name}</Link></li>))}
                 </ul>
-                <div className={`${debouncedIsNavOpen ? "translate-x-0" : "translate-x-full" } absolute transform transition duration-300 flex top-0 left-0 w-full h-screen flex-col bg-gradient-to-l from-white from-50% backdrop-blur-sm z-[5] block md:hidden`} />
+                <div className={`${debouncedIsNavOpen ? "translate-x-0" : "translate-x-full" } absolute transform transition duration-300 top-0 left-0 w-full h-screen bg-gradient-to-l from-white from-50% backdrop-blur-sm z-[5] md:hidden`} />
             </div>
         </>
     )
