@@ -1,14 +1,49 @@
 import {Article} from "@/app/types/Article";
 import Link from "next/link";
+import Image from 'next/image'
 
 const ArticleCard = ({ article, className = "" }: {article: Article; className?: string;}) => {
+
     return (
-        <Link href={`/${article.slug}`}>
-            <div className={`border my-2 ${className}`}>
-                <h2>{article.metadata.title}</h2>
-                <p>{article.metadata.excerpt}</p>
-            </div>
-        </Link>
+        <div className={`flex flex-col border p-2 my-2 ${className} text-center`}>
+            <Link href={`/${article.slug}`}>
+                <Image
+                    src={`/images/${article.slug}.webp`}
+                    width={100}
+                    height={100}
+                    alt={`Artikelbild mit Link zum Artikel`}
+                />
+            </Link>
+            <span className={`uppercase text-sm font-light`}>
+                {
+                    article.slug
+                        .replaceAll("/", " ")
+                        .substring(4, article.slug.lastIndexOf("/"))
+                }
+            </span>
+            <h3 className={`text-xl`}>
+                {article.metadata.title}
+            </h3>
+            <span className={`uppercase text-sm font-light`}>
+                {
+                    article.metadata.date
+                        .toJSON()
+                        .slice(0,10)
+                        .split('-')
+                        .reverse()
+                        .join('/')
+                }
+            </span>
+            <p className={`text-md`}>
+                {article.metadata.excerpt}
+            </p>
+            <Link
+                className={`text-md border px-4 py-2`}
+                href={`/${article.slug}`}
+            >
+                Weiterlesen
+            </Link>
+        </div>
     )
 }
 
