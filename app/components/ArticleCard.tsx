@@ -9,8 +9,8 @@ const ArticleCard = ({ article, className = "" }: {article: Article; className?:
             <Link href={`/${article.slug}`}>
                 <Image
                     src={`/images/${article.slug}.webp`}
-                    width={100}
-                    height={100}
+                    width={1000}
+                    height={1000}
                     alt={`Artikelbild mit Link zum Artikel`}
                 />
             </Link>
@@ -34,7 +34,7 @@ const ArticleCard = ({ article, className = "" }: {article: Article; className?:
                         .join('/')
                 }
             </span>
-            <p className={`text-md`}>
+            <p className={`text-md my-2`}>
                 {article.metadata.excerpt}
             </p>
             <Link

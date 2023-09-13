@@ -1,8 +1,8 @@
-import {readArticleBySlug, readDirectory} from '@/app/lib/articleParser'
+import {readArticleBySlug, readDirectory, readDirectoryRecursively} from '@/app/lib/articleParser'
 import {ArticleInfo} from '@/app/types/Article'
 import {MDXRemote} from 'next-mdx-remote/rsc'
 import path from 'path'
-import Link from "next/link";
+import ArticleCard from "@/app/components/ArticleCard";
 
 const ArticleMdxPage = (content: string) => {
     return (
@@ -12,15 +12,36 @@ const ArticleMdxPage = (content: string) => {
     )
 }
 const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
+    const allFiles = articles
+        .map(article => readArticleBySlug(`${baseSlug}/${article.slug}`))
+
+    const allArticles = allFiles
+        .filter(article => article.metadata.author != undefined)
+
+    const allDirectories = allFiles
+        .filter(article => article.metadata.author == undefined)
+        .map(directory => {
+            return {
+                slug: directory.slug,
+                name: directory.slug.substring(directory.slug.lastIndexOf("/")+1)
+            }
+        })
+
     return (
-        <article className={"prose lg:prose-xl"}>
-            Article List:
-            <ul>
-                {articles.map(article => <li><Link href={`/${baseSlug}/${article.slug}`}>{article.slug}</Link></li>)}
-            </ul>
-        </article>
+        <>
+            <h2 className={`text-2xl mb-6 mt-12`}>Die neusten Artikel von <span className={`uppercase `}>{baseSlug.substring(baseSlug.lastIndexOf("/")+1)}</span>
+            </h2>
+            {allArticles.length > 0
+                ? (<ul>
+                    {allArticles.map((article) => (<li className={`my-8`}><ArticleCard key={article.slug} article={article}/></li>))}
+                </ul>)
+                : (<p>Hier scheint etwas falsch gelaufen zu sein..</p>)
+            }
+
+        </>
     )
 }
+
 const ArticlePage = ({ params }: { params: { slug: string[]; }}) => {
     const slug = path.join(...params.slug)
     const baseDirectory = process.env.BASE_DIRECTORY

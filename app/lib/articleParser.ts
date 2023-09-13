@@ -35,7 +35,7 @@ export function readArticleBySlug(slug: string): Article {
                 author: undefined,
                 title: undefined,
                 date: new Date(),
-                excerpt: undefined
+                excerpt: undefined,
             },
             content: undefined
         }

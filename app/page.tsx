@@ -20,7 +20,7 @@ export default function Home() {
 
             <h2 className={`text-2xl mb-6 mt-12`}>Die neusten Artikel</h2>
             <ul>
-                {displayedArticles.map((article) => (<li><ArticleCard key={article.slug} article={article}/></li>))}
+                {displayedArticles.map((article) => (<li className={`my-8`}><ArticleCard key={article.slug} article={article}/></li>))}
             </ul>
         </>
     )

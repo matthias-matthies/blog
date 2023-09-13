@@ -6,7 +6,6 @@ export interface ArticleMetadata {
 }
 
 export interface Article {
-    image: string;
     slug: string;
     metadata: ArticleMetadata;
     content: string | undefined;

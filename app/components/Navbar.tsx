@@ -14,8 +14,6 @@ const Navbar = ({ className = "", links = [] }: {className?: string; links?: FSF
         if (scrollDirection === "down" && !hideNav) setHideNav(true)
     },[scrollDirection])
 
-    console.log(links)
-
     return (
         <div className={`backdrop-blur-sm transform transition duration-300 ${hideNav ? "-translate-y-full" : "translate-y-0"}`}>
             <nav className={`py-4 md:py-8 lg:py-16 hidden md:block ${className}`}>
