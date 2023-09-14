@@ -13,14 +13,40 @@ type Props = {
 export async function generateMetadata(
     { params }: Props
 ): Promise<Metadata> {
-    console.log(params)
     const slug = path.join(...params.slug)
     const article = readArticleBySlug(`${process.env.BASE_DIRECTORY}/${slug}`)
 
+    // @ts-ignore
     return article.content !== undefined ?
         {
             title: `${article.metadata.title}`,
+            authors: [{name: article.metadata.author}],
             description: article.metadata.excerpt,
+            twitter: {
+                card: 'summary_large_image',
+                title: article.metadata.title,
+                description: article.metadata.excerpt,
+                siteId: process.env.TWITTER_SITE_ID,
+                creator: process.env.TWITTER_CREATOR,
+                creatorId: process.env.TWITTER_CREATOR_ID,
+                images: [`${process.env.FULL_URL}/images/${article.slug}`],
+            },
+            openGraph: {
+                title: `${article.metadata.title}`,
+                description: article.metadata.excerpt,
+                url: `/${article.slug}`,
+                siteName: `${process.env.PRIVACY_POLICY_DOMAIN}`,
+                images: [
+                    {
+                        url: `/images/${article.slug}.webp`,
+                        width: 1000,
+                        height: 1000,
+                    }
+                ],
+                locale: `${process.env.BLOG_LANGUAGE}`,
+                type: `article`,
+                publishedTime: article.metadata.date
+            },
         } :
         {
             title: `${process.env.BLOG_NAME} ${params.slug[params.slug.length-1]}`,
