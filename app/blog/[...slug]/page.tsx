@@ -5,6 +5,7 @@ import path from 'path'
 import ArticlesGrid from "@/app/components/ArticlesGrid";
 import type { Metadata } from 'next'
 import StructuredData from "@/app/components/StructuredData";
+import Image from "next/image";
 
 type Props = {
     params: { slug: string[]; }

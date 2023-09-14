@@ -27,7 +27,7 @@ const ArticlesGrid = ({ articles, className = "" }: {articles: Article[]; classN
         <>
             <h2 className={`text-2xl mb-6 mt-12`}>Die neusten Artikel</h2>
             <ul className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}>
-                {renderedArticles.map((article) => (<li className={`my-8 md:m-2`}><ArticleCard className={`md:h-full`} key={article.slug} article={article}/></li>))}
+                {renderedArticles.map((article, index) => (<li key={index} className={`my-8 md:m-2`}><ArticleCard className={`md:h-full`} key={article.slug} article={article}/></li>))}
             </ul>
             <div className="w-full mt-8 flex items-center justify-between border-t border-gray-200">
                 <div className="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer">
@@ -39,10 +39,10 @@ const ArticlesGrid = ({ articles, className = "" }: {articles: Article[]; classN
                     <p className="text-sm ml-3 font-medium leading-none" onClick={() => paginate > 1 && setPaginate(paginate-1)}>Previous</p>
                 </div>
                 <div className="sm:flex hidden">
-                    {pages.map((page) => {
+                    {pages.map((page, index) => {
                         return page == paginate ?
-                            <p className={`text-sm font-medium leading-none cursor-pointer border-t pt-3 mr-4 px-2 text-indigo-700 border-indigo-400`} onClick={() => setPaginate(page)}>{page}</p> :
-                            <p className={`text-sm font-medium leading-none cursor-pointer border-t pt-3 mr-4 px-2 text-gray-600 border-transparent hover:text-indigo-700 hover:border-indigo-400`} onClick={() => setPaginate(page)}>{page}</p>
+                            <p key={index} className={`text-sm font-medium leading-none cursor-pointer border-t pt-3 mr-4 px-2 text-indigo-700 border-indigo-400`} onClick={() => setPaginate(page)}>{page}</p> :
+                            <p key={index} className={`text-sm font-medium leading-none cursor-pointer border-t pt-3 mr-4 px-2 text-gray-600 border-transparent hover:text-indigo-700 hover:border-indigo-400`} onClick={() => setPaginate(page)}>{page}</p>
                     })}
                 </div>
                 <div className="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer">
