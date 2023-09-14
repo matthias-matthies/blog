@@ -90,13 +90,7 @@ const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
             }
         })
 
-    return (
-        <>
-            <h2 className={`text-2xl mb-6 mt-12`}>Die neusten Artikel von <span className={`uppercase `}>{baseSlug.substring(baseSlug.lastIndexOf("/")+1)}</span>
-            </h2>
-            {allArticles.length > 0 ? <ArticlesGrid articles={allArticles}/> : ""}
-        </>
-    )
+    return <ArticlesGrid articles={allArticles} />
 }
 
 const ArticlePage = ({ params }: Props) => {
