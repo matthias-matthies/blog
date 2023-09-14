@@ -34,7 +34,7 @@ const ArticleCard = ({ article, className = "" }: {article: Article; className?:
                         .join('/')
                 }
             </span>
-            <p className={`text-md my-2`}>
+            <p className={`text-md my-2 h-full`}>
                 {article.metadata.excerpt}
             </p>
             <Link

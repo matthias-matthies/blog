@@ -2,7 +2,7 @@ import {readArticleBySlug, readDirectory, readDirectoryRecursively} from '@/app/
 import {ArticleInfo} from '@/app/types/Article'
 import {MDXRemote} from 'next-mdx-remote/rsc'
 import path from 'path'
-import ArticleCard from "@/app/components/ArticleCard";
+import ArticlesGrid from "@/app/components/ArticlesGrid";
 
 const ArticleMdxPage = (content: string) => {
     return (
@@ -31,13 +31,7 @@ const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
         <>
             <h2 className={`text-2xl mb-6 mt-12`}>Die neusten Artikel von <span className={`uppercase `}>{baseSlug.substring(baseSlug.lastIndexOf("/")+1)}</span>
             </h2>
-            {allArticles.length > 0
-                ? (<ul>
-                    {allArticles.map((article) => (<li className={`my-8`}><ArticleCard key={article.slug} article={article}/></li>))}
-                </ul>)
-                : (<p>Hier scheint etwas falsch gelaufen zu sein..</p>)
-            }
-
+            {allArticles.length > 0 ? <ArticlesGrid articles={allArticles}/> : ""}
         </>
     )
 }
