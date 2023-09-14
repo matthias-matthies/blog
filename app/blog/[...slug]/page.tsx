@@ -1,9 +1,10 @@
 import {readArticleBySlug, readDirectory, readDirectoryRecursively} from '@/app/lib/articleParser'
-import {ArticleInfo} from '@/app/types/Article'
+import {Article, ArticleInfo} from '@/app/types/Article'
 import {MDXRemote} from 'next-mdx-remote/rsc'
 import path from 'path'
 import ArticlesGrid from "@/app/components/ArticlesGrid";
 import type { Metadata } from 'next'
+import StructuredData from "@/app/components/StructuredData";
 
 type Props = {
     params: { slug: string[]; }
@@ -12,26 +13,37 @@ type Props = {
 export async function generateMetadata(
     { params }: Props
 ): Promise<Metadata> {
+    console.log(params)
     const slug = path.join(...params.slug)
-    const baseDirectory = process.env.BASE_DIRECTORY
-    const article = readArticleBySlug(`${baseDirectory}/${slug}`)
-    const articles = readDirectory(`${baseDirectory}/${slug}`)
+    const article = readArticleBySlug(`${process.env.BASE_DIRECTORY}/${slug}`)
 
-    return article.content === undefined ?
+    return article.content !== undefined ?
         {
-            title: article.metadata.title,
+            title: `${article.metadata.title}`,
+            description: article.metadata.excerpt,
         } :
         {
-            title: article.metadata.author
+            title: `${process.env.BLOG_NAME} ${params.slug[params.slug.length-1]}`,
+            description: `Übersicht für die Blogartikel zum Thema: ${params.slug[params.slug.length-1]}`
         }
 }
 
-const ArticleMdxPage = (content: string) => {
+const ArticleMdxPage = (article: Article) => {
+    const structuredData = {
+        headline: `${article.metadata.title}`,
+        description: `${article.metadata.excerpt}`,
+        slug: `${article.slug}`,
+        author: `${article.metadata.author}`,
+        datePublished: `${article.metadata.date}`
+    }
 
     return (
-        <article className={"prose lg:prose-xl"}>
-            <MDXRemote source={content} />
-        </article>
+        <>
+            <StructuredData data={structuredData} />
+            <article className={"prose lg:prose-xl"}>
+                <MDXRemote source={`${article.content}`} />
+            </article>
+        </>
     )
 }
 
@@ -62,13 +74,12 @@ const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
 
 const ArticlePage = ({ params }: Props) => {
     const slug = path.join(...params.slug)
-    const baseDirectory = process.env.BASE_DIRECTORY
-    const article = readArticleBySlug(`${baseDirectory}/${slug}`)
-    const articles = readDirectory(`${baseDirectory}/${slug}`)
+    const article = readArticleBySlug(`${process.env.BASE_DIRECTORY}/${slug}`)
+    const articles = readDirectory(`${process.env.BASE_DIRECTORY}/${slug}`)
 
     return article.content === undefined ?
-        ArticleCategoriesPage(articles, `${baseDirectory}/${slug}`) :
-        ArticleMdxPage(article.content)
+        ArticleCategoriesPage(articles, `${process.env.BASE_DIRECTORY}/${slug}`) :
+        ArticleMdxPage(article)
 }
 
 export default ArticlePage
