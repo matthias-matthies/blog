@@ -3,14 +3,38 @@ import {ArticleInfo} from '@/app/types/Article'
 import {MDXRemote} from 'next-mdx-remote/rsc'
 import path from 'path'
 import ArticlesGrid from "@/app/components/ArticlesGrid";
+import type { Metadata } from 'next'
+
+type Props = {
+    params: { slug: string[]; }
+}
+
+export async function generateMetadata(
+    { params }: Props
+): Promise<Metadata> {
+    const slug = path.join(...params.slug)
+    const baseDirectory = process.env.BASE_DIRECTORY
+    const article = readArticleBySlug(`${baseDirectory}/${slug}`)
+    const articles = readDirectory(`${baseDirectory}/${slug}`)
+
+    return article.content === undefined ?
+        {
+            title: article.metadata.title,
+        } :
+        {
+            title: article.metadata.author
+        }
+}
 
 const ArticleMdxPage = (content: string) => {
+
     return (
         <article className={"prose lg:prose-xl"}>
             <MDXRemote source={content} />
         </article>
     )
 }
+
 const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
     const allFiles = articles
         .map(article => readArticleBySlug(`${baseSlug}/${article.slug}`))
@@ -36,7 +60,7 @@ const ArticleCategoriesPage = (articles: ArticleInfo[], baseSlug: string) => {
     )
 }
 
-const ArticlePage = ({ params }: { params: { slug: string[]; }}) => {
+const ArticlePage = ({ params }: Props) => {
     const slug = path.join(...params.slug)
     const baseDirectory = process.env.BASE_DIRECTORY
     const article = readArticleBySlug(`${baseDirectory}/${slug}`)
